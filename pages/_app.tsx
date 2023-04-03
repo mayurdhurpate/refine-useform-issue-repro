@@ -12,14 +12,24 @@ import routerProvider, {
   UnsavedChangesNotifier,
 } from "@refinedev/nextjs-router";
 
-import dataProvider, { GraphQLClient } from "@refinedev/graphql";
+import dataProvider, { GraphQLClient } from "@refinedev/hasura";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Header } from "@components/header";
 
-const API_URL = "https://your-graphql-url/graphql";
+const API_URL = "https://imumz-admin.hasura.app/v1/graphql";
 
-const client = new GraphQLClient(API_URL);
-const gqlDataProvider = dataProvider(client);
+const client = new GraphQLClient(API_URL, {
+  headers: {
+    "x-hasura-role": "public",
+  },
+});
+const idTypeMap: Record<string, any> = {
+  tab_temp: "Int",
+};
+
+const gqlDataProvider = dataProvider(client, {
+  idType: (resource) => idTypeMap[resource] ?? "uuid",
+});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   noLayout?: boolean;
@@ -44,7 +54,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
 
   return (
     <>
-      <GitHubBanner />
       <RefineKbarProvider>
         {/* You can change the theme colors here. example: theme={RefineThemes.Magenta} */}
         <ChakraProvider theme={RefineThemes.Blue}>
@@ -56,6 +65,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
               syncWithLocation: true,
               warnWhenUnsavedChanges: true,
             }}
+            resources={[
+              {
+                name: "tab_temp",
+                list: "/tab_temps",
+                show: "/tab_temps/show/:id",
+                create: "/tab_temps/create",
+                edit: "/tab_temps/edit/:id",
+              },
+            ]}
           >
             {renderComponent()}
             <RefineKbar />

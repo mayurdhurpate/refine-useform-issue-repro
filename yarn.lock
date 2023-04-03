@@ -1607,6 +1607,18 @@
     graphql-ws "^5.9.1"
     pluralize "^8.0.0"
 
+"@refinedev/hasura@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@refinedev/hasura/-/hasura-6.0.1.tgz#12d052c8fc587257c71c19f896a0f8fcf2606b4d"
+  integrity sha512-xZiKUb2n6BWecG9gMCxD6RA3jk+6Uw+I7bdn8R+rIIkbqbUDqWtnz+HR/NE0bTsbNWbekfL/KZUc8xppoeizpg==
+  dependencies:
+    gql-query-builder "^3.5.5"
+    graphql "^15.6.1"
+    graphql-request "^5.2.0"
+    graphql-ws "^5.9.1"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+
 "@refinedev/inferencer@^3.0.0":
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@refinedev/inferencer/-/inferencer-3.1.4.tgz#7b2652d43bfee809fbd4fd656d8939a4b9d2ec3e"
