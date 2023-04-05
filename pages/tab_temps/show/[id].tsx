@@ -1,4 +1,4 @@
-import { HttpError, useShow } from "@refinedev/core";
+import { HttpError, useParsed, useShow } from "@refinedev/core";
 import {
   HStack,
   Box,
@@ -27,6 +27,8 @@ export type ITabTemp = {
 };
 
 function UpdateNameComponent() {
+  const { id } = useParsed();
+  console.log(id);
   const {
     formState: { errors },
     refineCore: { onFinish, formLoading },
@@ -37,6 +39,7 @@ function UpdateNameComponent() {
     saveButtonProps,
   } = useModalForm<ITabTemp, HttpError, ITabTemp>({
     refineCoreProps: {
+      id: id,
       action: "edit",
       meta: {
         fields: ["name"],
